@@ -1,0 +1,96 @@
+:root { 
+    --pureWhite: #fff;
+    --green: #16912b;
+    --blue: #4db5da;
+    --red: #a31313;
+}
+
+[data-theme="dark"] {
+    --secondColor: #181A1B;
+    --firstColor: #272A34;
+    --thirdColor: #44464d;
+    --fontColor: #ffffff;
+}
+
+[data-theme="light"] {
+    --firstColor: #f2f2f2;
+    --secondColor: #dadada;
+    --fontColor: #000000;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: var(--fontColor);
+}
+
+.title {
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    all: unset;
+}
+
+.icon {
+    user-select: none;
+    cursor: pointer;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+
+    img {
+        height: 70%;
+        width: 100%;
+    }
+}
+
+.icon:hover {
+    background-color: var(--green);
+}
+
+header {
+    background-color: var(--secondColor);
+    height: 5rem;
+    display: flex;
+
+    * {
+        transition: all 0.2s;
+    }
+
+    #tasks-manager {
+        width: 18rem;
+
+        #tasks-manager-content {
+            height: calc(100% - 1.5rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    #search {
+        flex-grow: 1;
+    }
+}
+
+main {
+    background-color: var(--firstColor);
+    height: calc(100vh - 5rem);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    overflow-y: auto;
+    position: relative;
+
+    * {
+        transition: all 0.2s;
+    }
+}
