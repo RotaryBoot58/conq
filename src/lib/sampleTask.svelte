@@ -1,4 +1,6 @@
 <style lang="scss">
+    @import '../style.scss';
+
     .task {
         background-color: var(--secondColor);
         height: 3.5rem;
@@ -31,11 +33,9 @@
         width: 14rem;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        justify-items: center;
-        align-items: center;
     }
 
-    .delete:hover {
+    #delete:hover {
         background-color: var(--red);
     }
 
@@ -51,34 +51,34 @@
     import TrashIcon from '../assets/trash.svg';
     import MenuIcon from '../assets/menu.svg';
 
-    export let title, url
+    export let taskTitle, taskUrl
 </script>
 
 <div class="task">
     <div class="general-info">
         <div class="task-title">
-            {title}
+            {taskTitle}
         </div>
 
         <div class="task-url">
-            {url}
+            {taskUrl}
         </div>
     </div>
 
     <div class="task-actions">
-        <button class="icon delete" title="Delete task">
+        <button id="delete" title="Delete task">
             <img src={TrashIcon} alt="TrashIconss">
         </button>
-        <button class="icon download-video" title="Download video from task">
+        <button id="download-video" title="Download video from task">
             <img src={DownloadVideoIcon} alt="DownloadVideoIcon">
         </button>
-        <button class="icon download-audio" title="Download audio from task">
+        <button id="download-audio" title="Download audio from task">
             <img src={DownloadAudioIcon} alt="DownloadAudioIcon">
         </button>
-        <button class="icon download-image" title="Download image from task">
+        <button id="download-image" title="Download image from task">
             <img src={DownloadImageIcon} alt="DownloadImageIcon">
         </button>
-        <button class="icon menu">
+        <button id="menu">
             <img src={MenuIcon} alt="MenuIcon">
         </button>
     </div>

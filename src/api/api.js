@@ -1,14 +1,18 @@
-//express dependencies
 import express from 'express';
-//fs dependencies
-import fs from 'fs'
-//sqlite dependencies
+import fs from 'fs';
 import sqlite3 from 'sqlite3';
+import cors from 'cors';
 
 const app = express();
+app.use(cors());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
-app.get('/read', (req, res) => {
-  const db = createDatabase();
+app.get('/', (req, res) => {
+  const db =  createDatabase();
 
   db.all('SELECT * FROM tasks', (error, rows) => {
     if (error) {
@@ -19,10 +23,38 @@ app.get('/read', (req, res) => {
   })
 });
 
-app.post('/database', (req, res) => {
-  res.json({
-    "statusCode": 200
-  });
+app.post('/create', (req, res) => {
+  /* const db = createDatabase();*/
+  const db =  createDatabase();
+  const { taskTitle, taskUrl } = req.body
+
+  if (!taskUrl) {
+    res.status(400).json({
+      "error":"Missing task URL"
+    });
+    return;
+  } if (!taskTitle) {
+    taskTitle.value === "Unnamed task"
+  }
+
+  const sql = `INSERT INTO tasks (title, url) VALUES (?, ?)`;
+
+  db.run(sql, [taskTitle, taskUrl], (error) => {
+    if (error) {
+      res.status(400).json({
+        "error":error.message
+      })
+      return;
+    }
+    res.status(201)/* .json({
+      "id": this.lastID
+    }) */
+  })
+
+  /* res.send(req.body); */
+  /* console.log(req.body); */
+
+  /* res.status(400) */
 });
 
 app.listen(3000, () => {
@@ -45,7 +77,7 @@ function createDatabase() {
           createDatabaseTable(db);
         }
       });
-      return new sqlite3.Database(dbFilelocation);
+      return db;
   };
 }
 

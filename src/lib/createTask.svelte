@@ -1,4 +1,6 @@
 <style lang="scss">
+    @import '../style.scss';
+
     #create-task {
         position: absolute;
         width: 48rem;
@@ -8,31 +10,79 @@
 
     form {
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        height: 8rem;
         padding: 0.5rem;
         gap: 0.5rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+        "task-normal-inputs task-media-inputs" 
+        "submit-button submit-button";
+    }
+
+    #task-normal-inputs {
+        gap: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        grid-area: task-normal-inputs;
+
+    }
+
+    #task-media-inputs {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-area: task-media-inputs;
     }
 
     input {
-        all: unset;
-        background-color: rgb(18, 50, 209);
+        border: none;
+        padding-left: 0.5rem;
+        height: 2rem;
+        background-color: var(--firstColor);
+    }
+
+    #submit-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 2rem;
+        grid-area: submit-button;
     }
 </style>
 
 <script>
-    import Title from './title.svelte'
+    /* function handleSubmit() {
+        e.preventDefault();
+
+        const newTaskUrlInput = document.forms["create-task-form"]["new-task-url"].value
+
+        if (newTaskUrlInput == "") {
+            alert("vc precisa colocar uma url")
+            return false;
+        }
+    } */
 </script>
 
 <div id="create-task">
-    <Title titleText="Create Task"/>
+    <div class="title">
+        Create task
+    </div>
 
-    <form action="post">
-        <label for="new-task-title">Title</label>
-        <input type="text" id="new-task-title" name="new-task-title">
+    <form action="http://localhost:3000/create" method="post" id="create-task-form">
+        <div id="task-normal-inputs">
+            <label for="taskTitle">Title</label>
+            <input type="text" id="taskTitle" name="taskTitle">
 
-        <label for="new-task-url">Link</label>
-        <input type="text" id="new-task-url" name="new-task-url">
+            <label for="taskUrl">Link</label>
+            <input type="url" id="taskUrl" name="taskUrl">
+        </div>
+
+        <div id="task-media-inputs">
+            To be added in the future
+        </div>
+
+        <button type="submit" id="submit-button">
+            Create task
+        </button>
     </form>
 </div>

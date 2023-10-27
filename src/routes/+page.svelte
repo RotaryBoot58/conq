@@ -1,36 +1,49 @@
 <style lang="scss">
     @import '../style.scss';
+
+    main {
+        background-color: var(--firstColor);
+        height: calc(100vh - 5rem);
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+        overflow-y: auto;
+        position: relative;
+    }
 </style>
 
 <script>
-    //assets imports
     import ExportIcon from '../assets/export.svg';
     import AddTaskIcon from '../assets/add_task.svg';
 
     //lib imports
     import SampleTask from '../lib/sampleTask.svelte';
     import CreateTask from '../lib/createTask.svelte';
-    import Title from '../lib/title.svelte';
 
-    function createNewTask() {
-            
+    export let data
+    const { tasks } = data
+
+    let visible = true
+
+    function toggleAddTask() {
+        visible = !visible
     }
 
-    async function getTasks() {
-        const response = await fetch('http://localhost:3000/read')
-        return await response.json()
-    }
 </script>
 
 <header>
     <div id="tasks-manager">
-        <Title titleText="Tasks manager"/>
-        <div id="tasks-manager-content">
-            <button class="icon" id="export-tasks" title="Export tasks">
+        <div class="title">
+            Tasks manager
+        </div>
+
+        <div id="tasks-manager-buttons">
+            <button id="export-tasks" title="Export tasks">
                 <img src={ExportIcon} alt="ExportIcon">
             </button>
 
-            <button on:click={createNewTask} class="icon" id="add-task" title="Create new task">
+            <button on:click={toggleAddTask} id="add-task" title="Create new task">
                 <img src={AddTaskIcon} alt="AddTaskIcon">
             </button>
         </div>
@@ -39,13 +52,11 @@
 </header>
 
 <main id="main">
-    {#await getTasks()}
-        Carregando
-    {:then tasks} 
-        {#each tasks as task (task.id)}
-            <SampleTask title={task.title} url={task.url}/>
-        {/each}
-    {/await}
+    {#each tasks as task (task.id)}
+        <SampleTask taskTitle={task.title} taskUrl={task.url}/>
+    {/each}
 
-    <CreateTask />
+    {#if visible}
+        <CreateTask/>
+    {/if}
 </main>

@@ -10,12 +10,15 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.20.4",
+		"@types/express": "^4.17.20",
 		"svelte": "^4.0.5",
 		"svelte-preprocess": "^5.0.4",
 		"vite": "^4.4.2"
 	},
 	"type": "module",
 	"dependencies": {
+		"body-parser": "^1.20.2",
+		"cors": "^2.8.5",
 		"express": "^4.18.2",
 		"fs": "^0.0.1-security",
 		"nodejs": "^0.0.0",
